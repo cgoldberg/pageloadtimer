@@ -18,7 +18,7 @@
 ----
 
 **Processing Model**
-.. image:: https://raw.githubusercontent.com/cgoldberg/navtimer/2fe42fe880d42c1bda86a38e5953aab83b9cd931/timing-overview.png
+.. image:: timing-overview.png
 
 ----
 

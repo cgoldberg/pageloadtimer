@@ -17,14 +17,14 @@
 
 ----
 
-**Processing Model**
-
-.. image:: timing-overview.png
-
-----
-
 **Further Reading**:
 
 - Navigation Timing API: `W3C Recommendation <http://www.w3.org/TR/navigation-timing/>`_
 - Navigation Timing API: `Mozilla Developer Network <https://developer.mozilla.org/en-US/docs/Navigation_timing>`_
 - Selenium WebDriver: `PyPI <https://pypi.python.org/pypi/selenium>`_
+
+----
+
+**Processing Model**
+
+.. image:: timing-overview.png

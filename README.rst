@@ -13,25 +13,26 @@
 
 **About**:
 
-**navtimer** is a python utility for timing automated browser pageloads.  It uses Selenium WebDriver to drive a browser, and the Navigation Timing API to gather metrics on different phases of loading a page in the browser.
+    **navtimer** is a python utility for timing automated browser pageloads.  It uses Selenium WebDriver to drive a browser, and the Navigation Timing API to gather metrics on different phases of loading a page in the browser.
 
 ----
 
 **Requirements**
 
-Python Version:
+    Python Version:
 
-- Python 2.7+ or Python 3.3+ :
+    - Python 2.7+ or Python 3.3+ :
 
-Python Dependencies:
+    Python Dependencies:
 
-- easyprocess
-- pyvirtualdisplay
-- selenium
+    - easyprocess
+    - pyvirtualdisplay
+    - selenium
 
-System Packages:
+    System Packages:
 
-- Xvfb
+    - Firefox (web browser)
+    - Xvfb (virtual display server)
 
 ----
 
@@ -43,6 +44,6 @@ System Packages:
 
 ----
 
-**Processing Model**:
+**Browser Processing Model**:
 
 .. image:: timing-overview.png

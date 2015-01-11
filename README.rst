@@ -17,6 +17,24 @@
 
 ----
 
+**Requirements**
+
+Python Version:
+
+- Python 2.7+ or Python 3.3+ :
+
+Python Dependencies:
+
+- easyprocess
+- pyvirtualdisplay
+- selenium
+
+System Packages:
+
+- Xvfb
+
+----
+
 **Further Reading**:
 
 - Navigation Timing API: `W3C Recommendation <http://www.w3.org/TR/navigation-timing/>`_

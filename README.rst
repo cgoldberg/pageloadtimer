@@ -6,7 +6,7 @@ navtimer
 
 - Author: Corey Goldberg
 - License: MIT
-- Development: `GitHub <https://github.com/cgoldberg/navtimer>`_
+- Development: `https://github.com/cgoldberg/navtimer <https://github.com/cgoldberg/navtimer>`_
 
 ----
 
@@ -19,17 +19,12 @@ navtimer
 **Requirements**:
 
 - Python Version:
-
   - Python 2.7+ or Python 3.3+
-
 - Python Dependencies:
-
   - easyprocess
   - pyvirtualdisplay
   - selenium
-
 - System Packages:
-
   - Firefox (web browser)
   - Xvfb (virtual display server)
 

@@ -25,6 +25,6 @@
 
 ----
 
-**Processing Model**
+**Processing Model**:
 
 .. image:: timing-overview.png

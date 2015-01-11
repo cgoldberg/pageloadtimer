@@ -19,12 +19,17 @@ navtimer
 **Requirements**:
 
 - Python Version:
+
   - Python 2.7+ or Python 3.3+
+
 - Python Dependencies:
+
   - easyprocess
   - pyvirtualdisplay
   - selenium
+
 - System Packages:
+
   - Firefox (web browser)
   - Xvfb (virtual display server)
 

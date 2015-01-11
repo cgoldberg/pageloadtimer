@@ -1,2 +1,3 @@
+easyprocess
 pyvirtualdisplay
 selenium

@@ -2,7 +2,7 @@
 navtimer
 --------
 
-**Automated Browser Performance - Web Navigation Timing**
+**Web Navigation Timing - Automated Browser Performance**
 
 - Author: Corey Goldberg
 - License: MIT

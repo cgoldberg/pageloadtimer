@@ -2,9 +2,9 @@
 navtimer
 --------
 
-**Web Navigation Timing - Automated Browser Performance**
+**Web Navigation Timing (PerformanceTiming Interface) - Automated Metric Collection**
 
-- Author: Corey Goldberg
+- Author: Corey Goldberg, 2015
 - License: MIT
 - Development: `https://github.com/cgoldberg/navtimer <https://github.com/cgoldberg/navtimer>`_
 
@@ -12,7 +12,7 @@ navtimer
 
 **About**:
 
-**navtimer** is a python utility for timing automated browser pageloads.  It uses Selenium WebDriver to drive a browser, and the Navigation Timing API to gather metrics on different phases of loading a page in the browser.
+**navtimer** is a Python utility for timing automated browser pageloads.  It uses Selenium WebDriver to drive a browser, and gathers metrics from the Navigation Timing API's PerformanceTiming Interface.  This allows you to measure performance for different phases of loading a web page in a Browser.
 
 ----
 
@@ -22,16 +22,38 @@ navtimer
 
   - Python 2.7+ or Python 3.3+
 
-- Python Dependencies:
+- System Dependencies:
+
+  - Firefox (web browser)
+  - Xvfb (virtual display server)
+
+- Python Requirements:
 
   - easyprocess
   - pyvirtualdisplay
   - selenium
 
-- System Packages:
+----
 
-  - Firefox (web browser)
-  - Xvfb (virtual display server)
+**Installation from GitHub repo**
+
+1. Install system requirements (Debian/Ubuntu)::
+
+    $ sudo apt-get install -y firefox git xvfb
+
+2. Clone the navtimer repo::
+
+    $ git clone https://github.com/cgoldberg/navtimer.git
+    $ cd navtimer
+
+3. create and activate a virtualenv::
+
+    $ virtualenv env
+    $ source env/bin/activate
+
+4. Install navtimer and requirements::
+
+    $ pip install -e .
 
 ----
 

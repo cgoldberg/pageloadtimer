@@ -2,14 +2,14 @@
 from setuptools import setup
 
 setup(
-    name='navtimer',
+    name='pageloadtimer',
     version='0.1.0',
     author='Corey Goldberg',
     author_email='cgoldberg@gmail.com',
-    py_modules=['navtimer',],
-    url='https://github.com/cgoldberg/navtimer',
+    py_modules=['pageloadtimer',],
+    url='https://github.com/cgoldberg/pageloadtimer',
     license='MIT',
-    description='Automated Metric Collection from Web Navigation Timing API',
+    description='Automated Web Page Load Timer',
     long_description=open('README.rst').read(),
     install_requires=[
         'pyvirtualdisplay >= 0.1.5',

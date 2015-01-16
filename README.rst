@@ -1,18 +1,18 @@
---------
-navtimer
---------
+-------------
+pageloadtimer
+-------------
 
-**Web Navigation Timing (PerformanceTiming Interface) - Automated Metric Collection**
+**Automated Page Load Timer - Web Navigation Timing (PerformanceTiming Interface)**
 
 - Author: Corey Goldberg, 2015
 - License: MIT
-- Development: `https://github.com/cgoldberg/navtimer <https://github.com/cgoldberg/navtimer>`_
+- Development: `https://github.com/cgoldberg/pageloadtimer <https://github.com/cgoldberg/pageloadtimer>`_
 
 ----
 
 **About**:
 
-**navtimer** is a Python utility for timing automated browser pageloads.  It uses Selenium WebDriver to drive a browser, and gathers metrics from the Navigation Timing API's PerformanceTiming Interface.  This allows you to measure performance for different phases of loading a web page in a Browser.
+**pageloadtimer** is a Python program for timing automated browser page loads.  It uses Selenium WebDriver to drive a browser, and gathers metrics from the Navigation Timing API's `PerformanceTiming` Interface.  This allows you to measure performance for different phases of loading a web page in a Browser.
 
 ----
 
@@ -43,7 +43,7 @@ navtimer
 
 2. Clone the navtimer repo::
 
-    $ git clone https://github.com/cgoldberg/navtimer.git
+    $ git clone https://github.com/cgoldberg/pageloadtimer.git
     $ cd navtimer
 
 3. create and activate a virtualenv::

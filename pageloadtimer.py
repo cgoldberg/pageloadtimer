@@ -5,7 +5,6 @@
 
 
 import argparse
-from pprint import pprint
 import textwrap
 
 import easyprocess
@@ -41,24 +40,28 @@ def get_event_times(timings):
     return event_times
 
 
-def load_page(url, virtual_display=True):
-    if virtual_display:
+def load_browser_page(url):
+    with VirtualDisplay():
+        driver = webdriver.Firefox()
+        driver.get(url)
+        timings = get_timings(driver)
+        driver.quit()
+    return get_event_times(timings)
+
+
+class VirtualDisplay:
+    def __enter__(self):
         try:
-            xvfb_display = Display()
-            xvfb_display.start()
+            self.xvfb_display = Display()
+            self.xvfb_display.start()
         except easyprocess.EasyProcessCheckInstalledError:
             print('Warning: virtual framebuffer is not available.')
             print('  please install Xvfb.')
             print('  running in default display server.\n')
-            virtual_display = False
-    driver = webdriver.Firefox()
-    driver.get(url)
-    timings = get_timings(driver)
-    driver.quit()
-    if virtual_display:
-        xvfb_display.stop()
-    return get_event_times(timings)
+        return self
 
+    def __exit__(self, *args):
+        self.xvfb_display.stop()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -66,6 +69,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if not args.url.startswith('http'):
         url = 'https://%s'.format(args.url)
-    event_times = load_page(args.url)
+    event_times = load_browser_page(args.url)
     for event, time in event_times:
         print '{}: {:.0f}ms'.format(event, time)

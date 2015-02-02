@@ -4,6 +4,7 @@
 # License: MIT
 
 
+import argparse
 from pprint import pprint
 import textwrap
 
@@ -18,24 +19,25 @@ def get_timings(driver):
         var timings = performance.timing || {};
         return timings;
         """)
-    timings = driver.execute_script(jscript)
-    unused_keys = ('toJSON', 'unloadEventEnd', 'unloadEventStart')
-    timings = {key: timings[key] for key in timings if key not in unused_keys}
+    all_timings = driver.execute_script(jscript)
+    unused_keys = ('redirectEnd', 'redirectStart', 'toJSON',
+                   'unloadEventEnd', 'unloadEventStart')
+    timings = {key: all_timings[key] for key in all_timings if key not in
+               unused_keys}
     return timings
 
 
 def get_event_times(timings):
-    ordered_events = ('navigationStart', 'redirectStart', 'redirectEnd',
-                      'fetchStart', 'domainLookupStart', 'domainLookupEnd',
-                      'connectStart', 'connectEnd', 'secureConnectionStart',
-                      'requestStart', 'responseStart', 'responseEnd',
-                      'domLoading', 'domInteractive',
+    ordered_events = ('navigationStart', 'fetchStart', 'domainLookupStart',
+                      'domainLookupEnd', 'connectStart', 'connectEnd',
+                      'secureConnectionStart', 'requestStart', 'responseStart',
+                      'responseEnd', 'domLoading', 'domInteractive',
                       'domContentLoadedEventStart', 'domContentLoadedEventEnd',
                       'domComplete', 'loadEventStart', 'loadEventEnd'
                       )
     min_time = min(timings.values())
-    event_times = [(event, timings[event] - min_time) for event
-                   in ordered_events if event in timings]
+    event_times = ((event, timings[event] - min_time) for event
+                   in ordered_events if event in timings)
     return event_times
 
 
@@ -47,7 +49,7 @@ def load_page(url, virtual_display=True):
         except easyprocess.EasyProcessCheckInstalledError:
             print('Warning: virtual framebuffer is not available.')
             print('  please install Xvfb.')
-            print('  running in regular display server.\n')
+            print('  running in default display server.\n')
             virtual_display = False
     driver = webdriver.Firefox()
     driver.get(url)
@@ -55,11 +57,15 @@ def load_page(url, virtual_display=True):
     driver.quit()
     if virtual_display:
         xvfb_display.stop()
-    event_times = get_event_times(timings)
-    return event_times
+    return get_event_times(timings)
 
 
 if __name__ == '__main__':
-    url = 'https://www.example.org/'
-    event_times = load_page(url)
-    pprint(event_times)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('url', help='url of page to load')
+    args = parser.parse_args()
+    if not args.url.startswith('http'):
+        url = 'https://%s'.format(args.url)
+    event_times = load_page(args.url)
+    for event, time in event_times:
+        print '{}: {:.0f}ms'.format(event, time)

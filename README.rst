@@ -29,7 +29,6 @@ pageloadtimer
 
 - Python Requirements:
 
-  - easyprocess
   - pyvirtualdisplay
   - selenium
 
@@ -39,21 +38,33 @@ pageloadtimer
 
 1. Install system requirements (Debian/Ubuntu)::
 
-    $ sudo apt-get install -y firefox git xvfb
+    $ sudo apt-get install -y firefox git python-virtualenv xvfb
 
-2. Clone the navtimer repo::
+2. Clone the pageloadtimer repo::
 
     $ git clone https://github.com/cgoldberg/pageloadtimer.git
-    $ cd navtimer
+    $ cd pageloadtimer
 
 3. create and activate a virtualenv::
 
     $ virtualenv env
     $ source env/bin/activate
 
-4. Install navtimer and requirements::
+4. Install pageloadtimer and requirements::
 
     $ pip install -e .
+
+----
+
+**Usage**
+
+- load a page and get timing info::
+
+    $ python pageloadtimer.py http://example.com
+
+- load a page with the browser inside a virtual display server (headless)::
+
+    $ python pageloadtimer.py -x http://example.com
 
 ----
 

@@ -13,7 +13,6 @@ setup(
     long_description=open('README.rst').read(),
     install_requires=[
         'pyvirtualdisplay >= 0.1.5',
-        'easyprocess >= 0.1.6',
         "selenium >= 2.44.0",
     ],
 )

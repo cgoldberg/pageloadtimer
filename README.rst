@@ -36,11 +36,11 @@ pageloadtimer
 
 **Installation from GitHub repo**
 
-1. Install system requirements (Debian/Ubuntu)::
+1. install system requirements (Debian/Ubuntu)::
 
     $ sudo apt-get install -y firefox git python-virtualenv xvfb
 
-2. Clone the pageloadtimer repo::
+2. clone the pageloadtimer repo::
 
     $ git clone https://github.com/cgoldberg/pageloadtimer.git
     $ cd pageloadtimer
@@ -50,7 +50,7 @@ pageloadtimer
     $ virtualenv env
     $ source env/bin/activate
 
-4. Install pageloadtimer and requirements::
+4. install pageloadtimer and requirements::
 
     $ pip install -e .
 

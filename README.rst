@@ -68,6 +68,37 @@ pageloadtimer
 
 ----
 
+**Example**
+
+::
+
+    $ python pageloadtimer.py -x www.example.com
+    starting browser.
+    loading page.
+    quitting browser.
+
+
+    navigation event timings:
+    *************************
+    navigationStart: 0ms
+    fetchStart: 2ms
+    domainLookupStart: 2ms
+    domainLookupEnd: 2ms
+    connectStart: 2ms
+    connectEnd: 2ms
+    requestStart: 113ms
+    responseStart: 154ms
+    responseEnd: 155ms
+    domLoading: 154ms
+    domInteractive: 173ms
+    domContentLoadedEventStart: 173ms
+    domContentLoadedEventEnd: 173ms
+    domComplete: 181ms
+    loadEventStart: 181ms
+    loadEventEnd: 181ms
+
+----
+
 **Further Reading**:
 
 - Navigation Timing API: `W3C Recommendation <http://www.w3.org/TR/navigation-timing/>`_

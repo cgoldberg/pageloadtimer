@@ -56,19 +56,6 @@ def load_browser_page(url):
     return event_times
 
 
-class VirtualDisplay:
-    def __enter__(self):
-        try:
-            self.xvfb_display = Display()
-            self.xvfb_display.start()
-        except Exception:
-            print('Warning: Xvfb (virtual framebuffer) is not available.')
-            print('  Using default display server instead.\n')
-        return self
-
-    def __exit__(self, *args):
-        self.xvfb_display.stop()
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('url', help='url of page to load')
@@ -76,15 +63,27 @@ if __name__ == '__main__':
                         help='use xvfb virtual display')
     args = parser.parse_args()
 
-    if not args.url.startswith('http'):
-        print('URLs must start with a protocol')
-        sys.exit(1)
+    if args.url.startswith('http'):
+        url = args.url
+    else:
+        url = 'http://{}'.format(args.url)
 
     if args.xvfb:
-        with VirtualDisplay():
-            event_times = load_browser_page(url)
-    else:
-        event_times = load_browser_page(url)
+        try:
+            self.xvfb_display = Display()
+            self.xvfb_display.start()
+        except Exception:
+            print('Warning: Xvfb (virtual framebuffer) is not available.')
+            print('  Using default display server instead.\n')
+
+    event_times = load_browser_page(url)
+
+    if args.xvfb:
+        self.xvfb_display.stop()
+
+    logger.info('\n')
+    logger.info('navigation event timings:')
+    logger.info('*************************')
 
     for event, time in event_times:
         print('{}: {:.0f}ms'.format(event, time))

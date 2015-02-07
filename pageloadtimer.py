@@ -5,11 +5,15 @@
 
 
 import argparse
+import logging
+import sys
 import textwrap
 
-import easyprocess
 from pyvirtualdisplay import Display
 from selenium import webdriver
+
+logging.basicConfig(level=logging.INFO, format='%(message)s',)
+logger = logging.getLogger(__name__)
 
 
 def get_timings(driver):
@@ -41,12 +45,15 @@ def get_event_times(timings):
 
 
 def load_browser_page(url):
-    with VirtualDisplay():
-        driver = webdriver.Firefox()
-        driver.get(url)
-        timings = get_timings(driver)
-        driver.quit()
-    return get_event_times(timings)
+    logger.info('starting browser.')
+    driver = webdriver.Firefox()
+    logger.info('loading page.')
+    driver.get(url)
+    timings = get_timings(driver)
+    driver.quit()
+    logger.info('quitting browser.')
+    event_times = get_event_times(timings)
+    return event_times
 
 
 class VirtualDisplay:
@@ -54,10 +61,9 @@ class VirtualDisplay:
         try:
             self.xvfb_display = Display()
             self.xvfb_display.start()
-        except easyprocess.EasyProcessCheckInstalledError:
-            print('Warning: virtual framebuffer is not available.')
-            print('  please install Xvfb.')
-            print('  running in default display server.\n')
+        except Exception:
+            print('Warning: Xvfb (virtual framebuffer) is not available.')
+            print('  Using default display server instead.\n')
         return self
 
     def __exit__(self, *args):
@@ -66,9 +72,19 @@ class VirtualDisplay:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('url', help='url of page to load')
+    parser.add_argument('-x', '--xvfb', action='store_true',
+                        help='use xvfb virtual display')
     args = parser.parse_args()
+
     if not args.url.startswith('http'):
-        url = 'https://%s'.format(args.url)
-    event_times = load_browser_page(args.url)
+        print('URLs must start with a protocol')
+        sys.exit(1)
+
+    if args.xvfb:
+        with VirtualDisplay():
+            event_times = load_browser_page(url)
+    else:
+        event_times = load_browser_page(url)
+
     for event, time in event_times:
-        print '{}: {:.0f}ms'.format(event, time)
+        print('{}: {:.0f}ms'.format(event, time))

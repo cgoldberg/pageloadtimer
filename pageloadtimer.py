@@ -6,7 +6,6 @@
 
 import argparse
 import logging
-import sys
 import textwrap
 
 from pyvirtualdisplay import Display
@@ -69,17 +68,13 @@ if __name__ == '__main__':
         url = 'http://{}'.format(args.url)
 
     if args.xvfb:
-        try:
-            self.xvfb_display = Display()
-            self.xvfb_display.start()
-        except Exception:
-            print('Warning: Xvfb (virtual framebuffer) is not available.')
-            print('  Using default display server instead.\n')
+        xvfb_display = Display()
+        xvfb_display.start()
 
     event_times = load_browser_page(url)
 
     if args.xvfb:
-        self.xvfb_display.stop()
+        xvfb_display.stop()
 
     logger.info('\n')
     logger.info('navigation event timings:')

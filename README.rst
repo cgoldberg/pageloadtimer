@@ -62,7 +62,7 @@ pageloadtimer
 
     $ python pageloadtimer.py http://example.com
 
-- load a page with the browser inside a virtual display server (headless)::
+- load a page and get timing info, with the browser running headless (Xvfb).::
 
     $ python pageloadtimer.py -x http://example.com
 

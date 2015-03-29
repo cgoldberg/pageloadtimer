@@ -21,11 +21,7 @@ def get_timings(driver):
         var timings = performance.timing || {};
         return timings;
         """)
-    all_timings = driver.execute_script(jscript)
-    unused_keys = ('redirectEnd', 'redirectStart', 'toJSON',
-                   'unloadEventEnd', 'unloadEventStart')
-    timings = {key: all_timings[key] for key in all_timings if key not in
-               unused_keys}
+    timings = driver.execute_script(jscript)
     return timings
 
 
@@ -44,13 +40,10 @@ def get_event_times(timings):
 
 
 def load_browser_page(url):
-    logger.info('starting browser.')
     driver = webdriver.Firefox()
-    logger.info('loading page.')
     driver.get(url)
     timings = get_timings(driver)
     driver.quit()
-    logger.info('quitting browser.')
     event_times = get_event_times(timings)
     return event_times
 
@@ -58,8 +51,8 @@ def load_browser_page(url):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('url', help='url of page to load')
-    parser.add_argument('-x', '--xvfb', action='store_true',
-                        help='use xvfb virtual display')
+    parser.add_argument('-r', '--repeat', action='store', default=1, metavar='N', type=int, nargs='?', help='run N times')
+    parser.add_argument('-x', '--xvfb', action='store_true', help='use xvfb virtual display')
     args = parser.parse_args()
 
     if args.url.startswith('http'):
@@ -71,14 +64,15 @@ if __name__ == '__main__':
         xvfb_display = Display()
         xvfb_display.start()
 
-    event_times = load_browser_page(url)
+    for _ in range(args.repeat):
+        event_times = load_browser_page(url)
+
+        logger.info('\n')
+        logger.info('navigation event timings:')
+        logger.info('*************************')
+
+        for event, time in event_times:
+            logger.info('{}: {:.0f}ms'.format(event, time))
 
     if args.xvfb:
         xvfb_display.stop()
-
-    logger.info('\n')
-    logger.info('navigation event timings:')
-    logger.info('*************************')
-
-    for event, time in event_times:
-        print('{}: {:.0f}ms'.format(event, time))

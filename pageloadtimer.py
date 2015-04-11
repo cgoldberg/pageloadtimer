@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format='%(message)s',)
 logger = logging.getLogger(__name__)
 
 
-def get_timings(driver):
+def execute_timing_js(driver):
     jscript = textwrap.dedent("""
         var performance = window.performance || {};
         var timings = performance.timing || {};
@@ -33,7 +33,7 @@ def get_event_times(timings):
                       'domContentLoadedEventStart', 'domContentLoadedEventEnd',
                       'domComplete', 'loadEventStart', 'loadEventEnd'
                       )
-    min_time = min(timings.values())
+    min_time = min((epoch for epoch in timings.values() if epoch != 0))
     event_times = ((event, timings[event] - min_time) for event
                    in ordered_events if event in timings)
     return event_times
@@ -42,7 +42,7 @@ def get_event_times(timings):
 def load_browser_page(url):
     driver = webdriver.Firefox()
     driver.get(url)
-    timings = get_timings(driver)
+    timings = execute_timing_js(driver)
     driver.quit()
     event_times = get_event_times(timings)
     return event_times

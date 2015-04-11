@@ -55,17 +55,15 @@ if __name__ == '__main__':
     parser.add_argument('-x', '--xvfb', action='store_true', help='use xvfb virtual display')
     args = parser.parse_args()
 
-    if args.url.startswith('http'):
-        url = args.url
-    else:
-        url = 'http://{}'.format(args.url)
+    if not args.url.startswith('http'):
+        raise RuntimeError('invalid url')
 
     if args.xvfb:
         xvfb_display = Display()
         xvfb_display.start()
 
     for _ in range(args.repeat):
-        event_times = load_browser_page(url)
+        event_times = load_browser_page(args.url)
 
         logger.info('\n')
         logger.info('navigation event timings:')

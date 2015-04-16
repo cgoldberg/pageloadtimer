@@ -4,7 +4,6 @@
 # License: MIT
 
 
-import argparse
 import logging
 import textwrap
 
@@ -19,6 +18,7 @@ class PageLoadTimer:
 
     def __init__(self, driver):
         self.driver = driver
+
 
     def _execute_timing_js(self):
         jscript = textwrap.dedent("""
@@ -45,17 +45,11 @@ class PageLoadTimer:
         return event_times
 
 
-    def to_json(self):
-        pass
-
-
 
 if __name__ == '__main__':
-        url = 'http://www.yahoo.com'
+        url = 'http://www.google.com'
         driver = webdriver.Firefox()
         driver.get(url)
-
-        driver.quit()
         timer = PageLoadTimer(driver)
         print timer.get_event_times()
-
+        driver.quit()

@@ -11,21 +11,24 @@ class TestStringMethods(unittest.TestCase):
         self.driver = webdriver.Firefox()
         self.addCleanup(self.driver.quit)
 
-    def test_upper(self):
+        self.results = [
+            ('navigationStart', 0), ('fetchStart', 96), ('domainLookupStart', 96),
+            ('domainLookupEnd', 96), ('connectStart', 96), ('connectEnd', 96),
+            ('requestStart', 258), ('responseStart', 366), ('responseEnd', 409),
+            ('domLoading', 366), ('domInteractive', 438),
+            ('domContentLoadedEventStart', 444), ('domContentLoadedEventEnd', 449),
+            ('domComplete', 889), ('loadEventStart', 889), ('loadEventEnd', 891)
+        ]
+
+
+    def test_fields(self):
         self.driver.get('http://www.example.com')
         self.assertEqual(self.driver.title, 'Example Domain')
+        plt = pageloadtimer.PageLoadTimer(self.driver)
+        expected = [x[0] for x in self.results]
+        actual = [x[0] for x in plt.get_event_times()]
+        self.assertEqual(expected, actual)
 
-    #def test_upper(self):
-    #    self.assertEqual('foo'.upper(), 'FOO')
-
-    #def test_isupper(self):
-    #    self.assertTrue('FOO'.isupper())
-    #    self.assertFalse('Foo'.isupper())
-
-    #def test_split(self):
-    #    # check that s.split fails when the separator is not a string
-    #    with self.assertRaises(TypeError):
-    #        s.split(2)
 
 if __name__ == '__main__':
     unittest.main()

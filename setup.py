@@ -12,7 +12,7 @@ setup(
     description='Automated Web Page Load Timer',
     long_description=open('README.rst').read(),
     install_requires=[
-        'pyvirtualdisplay >= 0.1.5',
-        "selenium >= 2.45.0",
+        'xvfbwrapper',
+        "selenium",
     ],
 )

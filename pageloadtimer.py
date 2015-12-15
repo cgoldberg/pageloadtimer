@@ -8,6 +8,7 @@ import collections
 import textwrap
 
 from selenium import webdriver
+from xvfbwrapper import Xvfb
 
 
 class PageLoadTimer:
@@ -15,8 +16,7 @@ class PageLoadTimer:
     def __init__(self, driver):
         """
             takes:
-                driver: webdriver instance from selenium package.
-            this should be instantiated with an active driver.
+                'driver': webdriver instance from selenium.
         """
         self.driver = driver
 
@@ -60,9 +60,9 @@ class PageLoadTimer:
 
 
 if __name__ == '__main__':
-    url = 'http://www.example.com'
-    driver = webdriver.Firefox()
-    driver.get(url)
-    timer = PageLoadTimer(driver)
-    print timer.get_event_times()
-    driver.quit()
+    with Xvfb() as xvfb:
+        url = 'http://www.example.com'
+        driver = webdriver.Firefox()
+        driver.get(url)
+        timer = PageLoadTimer(driver)
+        print timer.get_event_times()

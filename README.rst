@@ -29,8 +29,8 @@ pageloadtimer
 
 - Python Requirements:
 
-  - pyvirtualdisplay
   - selenium
+  - xvfbwrapper
 
 ----
 
